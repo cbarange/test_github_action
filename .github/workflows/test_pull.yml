@@ -16,6 +16,7 @@ jobs:
     - run: yarn test
   # Create merge request with main with automerge label
   pull-request:
+    if: success()
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
