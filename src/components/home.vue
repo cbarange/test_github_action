@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="home">
       <br/>
       <br/>
       <md-content class="md-primary field title">
@@ -8,15 +8,22 @@
         <h3>please enter a number between<br/> 0 and 9999 </h3>
       </md-content>
       <br/>
-      <md-field class="field">
-        <label>Number</label>
-        <md-input v-model="number" type="number"></md-input>
-      </md-field>
-      <md-button @click="generate()" class="md-raised md-primary">Generate Cistercian Notation</md-button>
+      
+        <md-field class="field" :md-counter="false">
+          <label>Number</label>
+          <md-input v-on:keyup.enter="generate" v-model="number" maxlength="10" type="number"></md-input>
+        </md-field>
+      
+        <br/>
+      
+        <md-button @click="generate" class="md-raised md-primary">Generate Cistercian Notation</md-button>
+      
+      
       <br/>
       <md-content class="md-accent viewer field">
        
-        {{res}}
+        <md-progress-spinner v-if="loading" md-mode="indeterminate"></md-progress-spinner>
+        <img v-else v-for="item in res" :src="item" alt="Some error appear with image 😰, request again to get it"/>
 
       </md-content>
     </div>
@@ -28,26 +35,23 @@ var FormData = require('form-data')
 
 export default {
   name: 'home',
+  //component: {MdContent,MdField,MdInput,MdButton,MdContent},
   data () {
     return {
-      res:'Waiting...',
-      number:''
+      res:[],
+      number:'',
+      loading:false
     }
   },
   methods: {
     generate:function(){
-      var data = new FormData();
-      data.append('tool', 'nombres-cisterciens')
-      data.append('number', '1258')
-
-      axios({
-        method: 'post',
-        url: 'https://www.dcode.fr/api/',
-        data : data,
-        headers: {'Access-Control-Allow-Origin': '*', 'Content-Type': 'multipart/form-data'},
+      this.loading=true 
+      axios.get(`https://githubactiontest.herokuapp.com/${this.number}`)
+      .then( response => {
+        this.res=response.data.results.match(/<img [^>]*src="[^"]*"[^>]*>/gm).map(x => x.replace(/.*src="([^"]*)".*/, '$1'))
+        this.loading=false
       })
-      .then( response => this.res=JSON.stringify(response.data) )
-      .catch( error =>console.log(error))
+      .catch( error =>{console.log(error);this.loading=false })
 
     }
   },
