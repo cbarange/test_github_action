@@ -1,7 +1,7 @@
 # test_github_action
 > cbarange | 10th Junuary 2021
 
-> Project for Continus Integration lesson at EPSI Nantes
+> Project for Continuous Integration lesson at EPSI Nantes
 
 ## Build Setup
 
