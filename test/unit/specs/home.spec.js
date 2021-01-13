@@ -10,9 +10,6 @@ describe('home.vue', () => {
   })
 })
 
-
-
-
 describe("true is Really true ?", () => {
   it("works", () => {
     expect(true).toBe(true);

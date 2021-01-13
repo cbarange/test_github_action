@@ -17,6 +17,7 @@ jobs:
   # Create merge request with main with automerge label
   pull-request:
     if: success()
+    needs: [test]
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2

@@ -26,7 +26,8 @@
         <img v-else v-for="item in res" :src="item" alt="Some error appear with image 😰, request again to get it"/>
 
       </md-content>
-      <div class="field footer"><a href="https://github.com/cbarange">cbarange</a></div>
+      <div class="field footer"><a href="https://github.com/cbarange">github : cbarange</a>
+        <a href="https://twitter.com/cbarange_dev"> twitter :@cbarange_dev</a></div>
     </div>
 </template>
 
